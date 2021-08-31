@@ -24,3 +24,4 @@ This application controls the fan speed of AMD GPUs according to a set fan curve
 
 **Uninstall:**
 * Remove `/usr/local/bin/fancurve`
+* If installed service, remove `/etc/systemd/system/fancurve.service`
