@@ -21,7 +21,10 @@ This application controls the fan speed of AMD GPUs according to a set fan curve
 **Systemd service:**
 * `sudo cp fancurve.service /etc/systemd/system`
 * `sudo chmod 644 /etc/systemd/system/fancurve.service`
+* `sudo systemctl enable fancurve.service`
 
 **Uninstall:**
 * Remove `/usr/local/bin/fancurve`
-* If installed service, remove `/etc/systemd/system/fancurve.service`
+* If installed the service
+  * Run `sudo systemctl disable fancurve.service`
+  * Remove `/etc/systemd/system/fancurve.service`
