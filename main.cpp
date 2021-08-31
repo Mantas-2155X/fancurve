@@ -36,6 +36,8 @@ void signal(int sig)
 int main()
 {
     signal(SIGINT, signal);
+    signal(SIGTERM, signal);
+
     start();
 
     return 0;
