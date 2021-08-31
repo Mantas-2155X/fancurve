@@ -142,7 +142,9 @@ void setPWM(int value)
     if (!file.is_open())
         return;
 
-    file << (int)(value * 2.54);
+    int multiplied = value * 2.55;
+
+    file << std::clamp(multiplied, 0, 255);
     file.close();
 }
 
@@ -153,7 +155,7 @@ void setPWMToggle(int value)
     if (!file.is_open())
         return;
 
-    file << value;
+    file << std::clamp(value, 0, 2);
     file.close();
 }
 
@@ -172,7 +174,7 @@ int getPWM()
     if (value < 0)
         return -1;
 
-    return (int)(value / 2.54);
+    return (int)(value / 2.55);
 }
 
 int getPWMToggle()
