@@ -35,3 +35,4 @@ This application controls the fan speed of AMD GPUs according to a set fan curve
 
 **Notes:**
 * Only tested on Kubuntu 21.04 with a AMD RX 5700 XT and mesa drivers
+* Curve configuration must be rising
