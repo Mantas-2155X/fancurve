@@ -142,18 +142,18 @@ void readCurve()
         activeCurve.pwmValues.push_back(pwm);
     }
 
+    if (needsCorrection)
+    {
+        std::cout << "Correcting invalid configuration" << std::endl;
+        writeCurve();
+    }
+
     if (activeCurve.temperatures.empty())
     {
         std::cout << "Empty configuration" << std::endl;
         end();
 
         return;
-    }
-
-    if (needsCorrection)
-    {
-        std::cout << "Correcting invalid configuration" << std::endl;
-        writeCurve();
     }
 }
 
