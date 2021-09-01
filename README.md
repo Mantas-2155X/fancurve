@@ -28,3 +28,6 @@ This application controls the fan speed of AMD GPUs according to a set fan curve
 * If installed the service
   * Run `sudo systemctl disable fancurve.service`
   * Remove `/etc/systemd/system/fancurve.service`
+
+**Notes:**
+* Only tested on Kubuntu 21.04 with a AMD RX 5700 XT and mesa drivers
