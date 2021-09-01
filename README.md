@@ -2,6 +2,10 @@
 
 This application controls the fan speed of AMD GPUs according to a set fan curve.
 
+**Features:**
+* Control speed of amdgpu fan according to custom curve
+* Automatic configuration correction
+
 **Build:**
 * `mkdir release && cd release`
 * `cmake -DCMAKE_BUILD_TYPE=Release ..`
