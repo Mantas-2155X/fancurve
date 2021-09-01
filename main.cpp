@@ -58,7 +58,8 @@ void end()
     std::cout << "Stopped fancurve" << std::endl;
 
     setPWMToggle(2);
-    writeCurve();
+
+    exit(0);
 }
 
 void loop()
@@ -104,23 +105,55 @@ void loop()
 void readCurve()
 {
     std::vector<std::string> vector = getFileString(configPath);
+    if (vector.empty())
+    {
+        std::cout << "No configuration found" << std::endl;
+        end();
 
-    int length = vector.size();
+        return;
+    }
 
-    for (int i = 0; i < length; i++)
+    bool needsCorrection = false;
+    for (int i = 0; i < vector.size(); i++)
     {
         int separator = vector[i].find(' ');
         if (separator == -1)
+        {
+            needsCorrection = true;
             continue;
+        }
 
         int temp = atoi(vector[i].substr(0, separator).c_str());
         int pwm = atoi(vector[i].substr(separator + 1).c_str());
 
         if ((temp == 0 || pwm == 0) && i > 0)
+        {
+            needsCorrection = true;
             continue;
+        }
+
+        if (!isHigherThanPrevious(temp, pwm, i))
+        {
+            needsCorrection = true;
+            continue;
+        }
 
         activeCurve.temperatures.push_back(temp);
         activeCurve.pwmValues.push_back(pwm);
+    }
+
+    if (activeCurve.temperatures.empty())
+    {
+        std::cout << "Empty configuration" << std::endl;
+        end();
+
+        return;
+    }
+
+    if (needsCorrection)
+    {
+        std::cout << "Correcting invalid configuration" << std::endl;
+        writeCurve();
     }
 }
 
@@ -219,6 +252,15 @@ std::vector<std::string> getFileString(std::string filePath)
     file.close();
 
     return content;
+}
+
+bool isHigherThanPrevious(int temp, int pwm, int index)
+{
+    for (int k = 0; k < index; k++)
+        if (temp < activeCurve.temperatures[k] || pwm < activeCurve.pwmValues[k])
+            return false;
+
+    return true;
 }
 
 float inverseLerp(float x, float y, float value)

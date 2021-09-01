@@ -13,6 +13,7 @@ int getPWM();
 int getPWMToggle();
 int getFileInt(std::string);
 std::vector<std::string> getFileString(std::string);
+bool isHigherThanPrevious(int, int, int);
 float inverseLerp(float, float, float);
 
 #endif
